@@ -101,13 +101,11 @@ def main(revisions=None):
         ]
         environment = LocalEnvironment(processes=4)
 
-    # NOTE: computation time of symmetries does not include computation of orders
-    # because it is an extra command.
     configs = {
-        IssueConfig('translate-symm', ['--translate-options', '--compute-symmetries', '--do-not-stabilize-initial-state', '--do-not-stabilize-goal', '--bliss-time-limit', '300', '--stop-after-computing-symmetries', '--write-group-generators'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
+        IssueConfig('translate-symm', ['--translate-options', '--compute-symmetries', '--do-not-stabilize-initial-state', '--do-not-stabilize-goal', '--bliss-time-limit', '300', '--stop-after-computing-symmetries'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
         IssueConfig('translate-symm-stabgoal-stabinit', ['--translate-options', '--compute-symmetries', '--bliss-time-limit', '300', '--stop-after-computing-symmetries'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
-        IssueConfig('translate-symm-objsymms', ['--translate-options', '--compute-symmetries', '--do-not-stabilize-initial-state', '--do-not-stabilize-goal', '--only-object-symmetries', '--bliss-time-limit', '300', '--stop-after-computing-symmetries', '--write-group-generators'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
-        IssueConfig('translate-symm-objsymms-stabgoal-stabinit', ['--translate-options', '--compute-symmetries', '--only-object-symmetries', '--bliss-time-limit', '300', '--stop-after-computing-symmetries', '--write-group-generators'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
+        IssueConfig('translate-symm-objsymms', ['--translate-options', '--compute-symmetries', '--do-not-stabilize-initial-state', '--do-not-stabilize-goal', '--only-object-symmetries', '--bliss-time-limit', '300', '--stop-after-computing-symmetries'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
+        IssueConfig('translate-symm-objsymms-stabgoal-stabinit', ['--translate-options', '--compute-symmetries', '--only-object-symmetries', '--bliss-time-limit', '300', '--stop-after-computing-symmetries'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
     }
 
     exp = IssueExperiment(
@@ -120,7 +118,6 @@ def main(revisions=None):
     exp.add_parser(exp.EXITCODE_PARSER)
     exp.add_parser(exp.TRANSLATOR_PARSER)
     exp.add_resource(name='compute_group_order', source='compute-group-order.py')
-    exp.add_command('compute-group-order', [sys.executable, '{compute_group_order}'], time_limit=600, memory_limit=3584)
     exp.add_parser('symmetries-parser.py')
 
     num_lifted_generators = Attribute('num_lifted_generators', absolute=True, min_wins=False)
@@ -131,7 +128,6 @@ def main(revisions=None):
     bliss_out_of_time = Attribute('bliss_out_of_time', absolute=True, min_wins=True)
     symmetry_graph_size = Attribute('symmetry_graph_size', absolute=True, min_wins=True)
     time_symmetries = Attribute('time_symmetries', absolute=False, min_wins=True, function=geometric_mean)
-    symmetry_group_order = Attribute('symmetry_group_order', absolute=False, min_wins=False)
     symmetries_only_affect_objects = Attribute('symmetries_only_affect_objects', absolute=True, min_wins=False)
     symmetries_only_affect_predicates = Attribute('symmetries_only_affect_predicates', absolute=True, min_wins=False)
     symmetries_only_affect_functions = Attribute('symmetries_only_affect_functions', absolute=True, min_wins=False)
@@ -145,7 +141,6 @@ def main(revisions=None):
         bliss_out_of_time,
         symmetry_graph_size,
         time_symmetries,
-        symmetry_group_order,
         symmetries_only_affect_objects,
         symmetries_only_affect_predicates,
         symmetries_only_affect_functions,

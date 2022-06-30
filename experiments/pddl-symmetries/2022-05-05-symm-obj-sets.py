@@ -59,6 +59,8 @@ def main(revisions=None):
 
     configs = {
         IssueConfig('translate-symm-objsymms-symmobjsetfromsymm', ['--translate-options', '--compute-symmetries', '--only-object-symmetries', '--compute-symmetric-object-sets-from-symmetries', '--do-not-stabilize-initial-state', '--do-not-stabilize-goal', '--bliss-time-limit', '300', '--stop-after-computing-symmetries', '--write-group-generators'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
+        IssueConfig('translate-symm-objsymms-stabgoal-symmobjsetfromsymm', ['--translate-options', '--compute-symmetries', '--only-object-symmetries', '--compute-symmetric-object-sets-from-symmetries', '--do-not-stabilize-initial-state', '--bliss-time-limit', '300', '--stop-after-computing-symmetries', '--write-group-generators'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
+        IssueConfig('translate-symm-objsymms-stabinit-symmobjsetfromsymm', ['--translate-options', '--compute-symmetries', '--only-object-symmetries', '--compute-symmetric-object-sets-from-symmetries', '--do-not-stabilize-goal', '--bliss-time-limit', '300', '--stop-after-computing-symmetries', '--write-group-generators'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
         IssueConfig('translate-symm-objsymms-stabgoal-stabinit-symmobjsetfromsymm', ['--translate-options', '--compute-symmetries', '--only-object-symmetries', '--compute-symmetric-object-sets-from-symmetries', '--bliss-time-limit', '300', '--stop-after-computing-symmetries', '--write-group-generators'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
         IssueConfig('translate-symmobjsetdirect', ['--translate-options', '--compute-symmetric-object-sets-directly', '--stop-after-computing-symmetries'], driver_options=['--translate', '--translate-time-limit', '30m', '--translate-memory-limit', '3584M']),
     }
@@ -120,6 +122,8 @@ def main(revisions=None):
 
     algorithm_nicks = [
         'translate-symm-objsymms-symmobjsetfromsymm',
+        'translate-symm-objsymms-stabgoal-symmobjsetfromsymm',
+        'translate-symm-objsymms-stabinit-symmobjsetfromsymm',
         'translate-symm-objsymms-stabgoal-stabinit-symmobjsetfromsymm',
         'translate-symmobjsetdirect',
     ]
@@ -142,7 +146,7 @@ def main(revisions=None):
     outfile=os.path.join(exp.eval_dir, exp.name + '-compare-vs-counter-abstractions.html')
     exp.add_report(
         ComparativeReport(
-            algorithm_pairs=[('{}-{}'.format(OTHER_REV, old_algorithm_nicks[0]), '{}-{}'.format(NEW_REV, algorithm_nicks[2]))],
+            algorithm_pairs=[('{}-{}'.format(OTHER_REV, old_algorithm_nicks[0]), '{}-{}'.format(NEW_REV, 'translate-symmobjsetdirect'))],
             attributes=attributes,
         ),
         outfile=outfile,
