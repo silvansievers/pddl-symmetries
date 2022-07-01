@@ -123,6 +123,8 @@ def main(revisions=None):
 
     algorithm_nicks = [
         'translate-symm-objsymms-symmobjsetfromsymm',
+        'translate-symm-objsymms-stabgoal-symmobjsetfromsymm',
+        'translate-symm-objsymms-stabinit-symmobjsetfromsymm',
         'translate-symm-objsymms-stabgoal-stabinit-symmobjsetfromsymm',
         'translate-symmobjsetdirect',
     ]
