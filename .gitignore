@@ -11,3 +11,4 @@ __pycache__/
 /experiments/pddl-symmetries/data
 /misc/.tox/
 /misc/autodoc/downward-xmlrpc.secret
+/.venv/
